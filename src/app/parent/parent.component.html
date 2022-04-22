@@ -1,0 +1,25 @@
+
+<div id="principal" fxLayout="column" fxFlex="100">
+    <div fxLayout="column" fxFlex="1">
+        <h3 style="margin-left: 1%;">PARENT</h3>
+    </div>
+    <div fxLayout="column" fxFlex="99" style="margin-top: 3%;">
+        <div fxLayout="column" fxFlex="50">
+            <div fxLayout="row" fxFlex="100" fxLayoutAlign="center">
+                <span>message: {{ mensaje | uppercase }} </span>
+            </div>
+            <div fxlayout="row" fxFlex="100" fxLayoutAlign="center">
+                <div fxlayout="column" fxFlex="7">
+                    <button (click)="servicioPadre()">Use Service</button>
+                </div>
+                <div fxlayout="column" fxFlex="9">
+                    <button (click)="inputPadre()">Use Input Property</button>
+                </div>
+                <div fxlayout="column" fxFlex="8">
+                    <button (click)="observablePadre()">Use Observable</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <app-child [mensaje]="mensajeAlHijo" (emisor)="recibido($event)"></app-child>
+</div>

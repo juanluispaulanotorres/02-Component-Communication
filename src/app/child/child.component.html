@@ -1,0 +1,23 @@
+<div id="child" fxLayout="column" fxFlex="100">
+    <div fxLayout="column" fxFlex="1">
+        <h3 style="margin-left: 1%;">CHILD</h3>
+    </div>
+    <div fxLayout="column" fxFlex="99" style="margin-top: 3%;">
+        <div fxLayout="column" fxFlex="50">
+            <div fxLayout="row" fxFlex="100" fxLayoutAlign="center">
+                <span>message: {{ mensaje | uppercase }}</span>
+            </div>
+            <div fxlayout="row" fxFlex="100" fxLayoutAlign="center">
+                <div fxlayout="column" fxFlex="7">
+                    <button (click)="servicioHijo()">Use Service</button>
+                </div>
+                <div fxlayout="column" fxFlex="9">
+                    <button (click)="outputPadre()">Use Output Event</button>
+                </div>
+                <div fxlayout="column" fxFlex="8">
+                    <button (click)="observableHijo()">Use Observable</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
