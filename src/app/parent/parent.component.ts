@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { map, Observable, Subject } from 'rxjs';
 import { CommunicationService } from '../communication.service';
 
 @Component({
@@ -15,20 +15,20 @@ export class ParentComponent {
   mensaje: string = "";
   mensajeAlHijo: string = "";
 
+  // servicioPadre() {
+  //   this.mensajeAlHijo = this.service.enviarAlHijo();
+  // }
 
-  servicioPadre() {
-    this.mensajeAlHijo = this.service.enviarAlHijo();
-  }
-
-  inputPadre() {
-    this.mensajeAlHijo = 'parent using input property';
-  }
+  // inputPadre() {
+  //   this.mensajeAlHijo = 'parent using input property';
+  // }
 
   observablePadre() {
-     this.service.sendFromPadre()
-    .subscribe( mensajePadre => {
-      this.mensajeAlHijo = mensajePadre;
-    })
+    this.service.sendSubject().subscribe(mensaje => {
+      this.mensajeAlHijo = mensaje;
+    }) 
+
+    this.service.sendSubject().next("PARENT USING SUBJECT");
   }
 
   recibido(mensaje: string) {

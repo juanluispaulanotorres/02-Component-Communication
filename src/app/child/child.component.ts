@@ -14,20 +14,21 @@ export class ChildComponent {
   @Input() mensaje: string = "";
 
   @Output() emisor = new EventEmitter<string>();
-  mensajeEmitido: string = "child using output event";
 
-  servicioHijo() {
-    this.emisor.emit(this.service.enviarAlPadre());
-  }
+  // servicioHijo() {
+  //   this.emisor.emit(this.service.enviarAlPadre());
+  // }
 
-  outputPadre() {
-    this.emisor.emit(this.mensajeEmitido);
-  }
+  // outputHijo() {
+  //   this.emisor.emit("child using output event");
+  // }
 
   observableHijo() {
-    this.service.sendFromChild()
-    .subscribe( mensajeHijo => {
-      this.emisor.emit(mensajeHijo);
+    this.service.sendSubject()
+    .subscribe( mensaje => {
+      this.emisor.emit(mensaje);
     })
+
+    this.service.sendSubject().next("CHILD USING SUBJECT");
   }
 }
