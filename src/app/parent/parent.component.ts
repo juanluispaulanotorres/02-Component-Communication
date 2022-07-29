@@ -1,5 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { map, Observable, Subject } from 'rxjs';
+import { Component, OnDestroy } from '@angular/core';
+import { Subject } from 'rxjs';
 import { CommunicationService } from '../communication.service';
 
 @Component({
@@ -8,7 +8,7 @@ import { CommunicationService } from '../communication.service';
   styleUrls: ['./parent.component.css']
 })
 
-export class ParentComponent {
+export class ParentComponent implements OnDestroy {
 
   constructor(private service: CommunicationService) { }
 
@@ -17,9 +17,14 @@ export class ParentComponent {
   mensaje: string = "";
   mensajeAlHijo: string = "";
 
-  // servicioPadre() {
-  //   this.mensajeAlHijo = this.service.enviarAlHijo();
-  // }
+  servicioPadre() {
+    this.service.enviarAlHijo().subscribe(mensaje => {
+      this.mensajeAlHijo = mensaje;
+    });
+
+    this.service.enviarAlHijo().next("parent using service");
+
+  }
 
   inputPadre() {
     this.mensajeAlHijo = 'parent using input property';
@@ -37,4 +42,10 @@ export class ParentComponent {
   recibido(mensaje: string) {
     this.mensaje = mensaje;
   }
+
+  ngOnDestroy(): void {
+    this.subject.complete();
+    this.subject.unsubscribe();
+  }
+
 }

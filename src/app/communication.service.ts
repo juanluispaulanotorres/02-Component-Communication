@@ -11,23 +11,15 @@ export class CommunicationService {
 
   // Los Subjects son Observables que manejan múltiples suscripciones a un único flujo y son capaces de emitir eventos.
 
-  // private subject = new Subject<string>();
-
-  mensajePadre: string = "parent using service";
-  mensajeHijo: string = "child using service";
+  private subjectPadre = new Subject<string>();
+  private subjectHijo = new Subject<string>();
 
   enviarAlHijo() {
-    return this.mensajePadre;
+    return this.subjectPadre;
   }
 
   enviarAlPadre() {
-    return this.mensajeHijo;
+    return this.subjectHijo;
   }
-
-
-  // Observables
-  // sendSubject() {
-  //   return this.subject;
-  // }
 
 }
