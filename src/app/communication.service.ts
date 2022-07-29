@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, of, Subject, takeUntil, tap } from 'rxjs';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +11,7 @@ export class CommunicationService {
 
   // Los Subjects son Observables que manejan múltiples suscripciones a un único flujo y son capaces de emitir eventos.
 
-  private subject = new Subject<string>();        // child using subject
+  // private subject = new Subject<string>();
 
   mensajePadre: string = "parent using service";
   mensajeHijo: string = "child using service";
@@ -26,8 +26,8 @@ export class CommunicationService {
 
 
   // Observables
-  sendSubject() {
-    return this.subject;
-  }
+  // sendSubject() {
+  //   return this.subject;
+  // }
 
 }

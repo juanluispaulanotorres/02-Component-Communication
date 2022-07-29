@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { map, Observable, Subject } from 'rxjs';
 import { CommunicationService } from '../communication.service';
 
@@ -12,6 +12,8 @@ export class ParentComponent {
 
   constructor(private service: CommunicationService) { }
 
+  private subject = new Subject<string>();
+
   mensaje: string = "";
   mensajeAlHijo: string = "";
 
@@ -19,20 +21,20 @@ export class ParentComponent {
   //   this.mensajeAlHijo = this.service.enviarAlHijo();
   // }
 
-  // inputPadre() {
-  //   this.mensajeAlHijo = 'parent using input property';
-  // }
+  inputPadre() {
+    this.mensajeAlHijo = 'parent using input property';
+  }
 
   observablePadre() {
-    this.service.sendSubject().subscribe(mensaje => {
-      this.mensajeAlHijo = mensaje;
-    }) 
 
-    this.service.sendSubject().next("PARENT USING SUBJECT");
+    this.subject.subscribe(mensaje => {
+      this.mensajeAlHijo = mensaje;
+    });
+
+    this.subject.next("parent using subject");
   }
 
   recibido(mensaje: string) {
     this.mensaje = mensaje;
   }
-
 }

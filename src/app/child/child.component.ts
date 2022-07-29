@@ -1,4 +1,5 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
+import { Subject } from 'rxjs';
 import { CommunicationService } from '../communication.service';
 
 @Component({
@@ -11,6 +12,8 @@ export class ChildComponent {
 
   constructor(private service: CommunicationService) { }
 
+  private subject = new Subject<string>();
+
   @Input() mensaje: string = "";
 
   @Output() emisor = new EventEmitter<string>();
@@ -19,16 +22,17 @@ export class ChildComponent {
   //   this.emisor.emit(this.service.enviarAlPadre());
   // }
 
-  // outputHijo() {
-  //   this.emisor.emit("child using output event");
-  // }
+  outputHijo() {
+    this.emisor.emit("child using output event");
+  }
 
   observableHijo() {
-    this.service.sendSubject()
-    .subscribe( mensaje => {
-      this.emisor.emit(mensaje);
-    })
 
-    this.service.sendSubject().next("CHILD USING SUBJECT");
+    this.subject.subscribe(mensaje => {
+      this.emisor.emit(mensaje);
+    });
+
+    this.subject.next("child using subject");
+
   }
 }
